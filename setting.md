@@ -372,7 +372,7 @@ for (let i = 0; i < 8; ++i) {
 
 // RapidFire Pattern listener.
 for (let i = 0; i < 8; ++i) {
-  for (let j = 0; i < 8; ++i) {
+  for (let j = 0; j < 8; ++j) {
     const id = 'p' + (i + 1).toString() + (j + 1).toString();
     document.getElementById(id).addEventListener('change', e => {
       const index = e.target.id.charCodeAt(1) - '1'.charCodeAt(0);
@@ -392,6 +392,8 @@ for (let i = 0; i < 8; ++i) {
         selectFireMask(index, i + 1);
       }
     }
+    const id = 'rp' + (index + 1).toString();
+    document.getElementById(id).children[11].selected = true;
   });
 }
 </script>
