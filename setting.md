@@ -45,7 +45,10 @@ Windowsユーザーは初回のみ設定が必要となります。IONA-USなど
 |ボタン 7|<input type="checkbox" id="b71">|<input type="checkbox" id="b72">|<input type="checkbox" id="b73">|<input type="checkbox" id="b74">|<input type="checkbox" id="b75">|<input type="checkbox" id="b76">|<input type="checkbox" id="b77">|<input type="checkbox" id="b78">|<select id="rp7"></select>|<input type="checkbox" id="p71"><input type="checkbox" id="p72"><input type="checkbox" id="p73"><input type="checkbox" id="p74"><input type="checkbox" id="p75"><input type="checkbox" id="p76"><input type="checkbox" id="p77"><input type="checkbox" id="p78">|<select id="rm7"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
 |ボタン 8|<input type="checkbox" id="b81">|<input type="checkbox" id="b82">|<input type="checkbox" id="b83">|<input type="checkbox" id="b84">|<input type="checkbox" id="b85">|<input type="checkbox" id="b86">|<input type="checkbox" id="b87">|<input type="checkbox" id="b88">|<select id="rp8"></select>|<input type="checkbox" id="p81"><input type="checkbox" id="p82"><input type="checkbox" id="p83"><input type="checkbox" id="p84"><input type="checkbox" id="p85"><input type="checkbox" id="p86"><input type="checkbox" id="p87"><input type="checkbox" id="p88">|<select id="rm8"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
 
+<button onclick="factory();">出荷設定の呼び出し</button>
+
 ---
+
 <script>
 for (let i = 0; i < 8; ++i) {
   let select = document.getElementById('rp' + (i + 1).toString());
@@ -322,6 +325,13 @@ function decide() {
       update(i);
       break;
     }
+  }
+}
+
+function factory() {
+  for (let i = 0; i < 8; ++i) {
+    reflect(8 + ((i < 6) ? i : 0));
+    update(i);
   }
 }
 
