@@ -6,7 +6,7 @@ permalink: /setting
 # レイアウト設定
 ---
 ## 接続準備
-IONA-SBのMETAボタンを押した状態でUSB Type-Cの口からパソコンに接続して下さい。
+IONA-SBのBOOTボタンを押した状態でUSB Type-Cの口からパソコンに接続して下さい。
 WebUSB APIでデバイスの設定にアクセスするのでChrome、またはWebUSBの有効になったChromium系のブラウザにてご利用下さい。
 
 Windowsユーザーは初回のみ設定が必要となります。IONA-USなどで設定済みの方は追加設定は不要です。

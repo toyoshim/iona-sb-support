@@ -6,7 +6,7 @@ permalink: /setting_en
 # Layout Settings
 ---
 ## Preparation
-Connect IONA-SB to your PC while pressing META button via USB Type-C.
+Connect IONA-SB to your PC while pressing BOOT button via USB Type-C.
 Then, open this page with Chrome, or Chromium based browser with WebUSB support is needed.
 WebUSB API is used to manage your device.
 
