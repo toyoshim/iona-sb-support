@@ -15,4 +15,4 @@ We don't support it and guarantee newer firmware works on the device.
 - KVCLab. - [MP12-IONA-SB　（JVS I/O 対応コントローラー組み込み用基板）](https://kvclab.com/shopdetail/000000000512/)
 
 ### Europe
-- Red Sun Systems - will be available soon
+- Red Sun Systems - [MP12-IONA-SB - JVS/JVS Dash I/O board](https://redsuns.be/#examp12)

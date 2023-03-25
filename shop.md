@@ -15,4 +15,4 @@ permalink: /shop
 - KVCLab. - [MP12-IONA-SB　（JVS I/O 対応コントローラー組み込み用基板）](https://kvclab.com/shopdetail/000000000512/)
 
 ### ヨーロッパ
-- Red Sun Systems - 出荷済み、近々販売開始します
+- Red Sun Systems - [MP12-IONA-SB - JVS/JVS Dash I/O board](https://redsuns.be/#examp12)
