@@ -10,9 +10,11 @@ let preset = [
 let presetCount = preset.length / 64;
 let data = new Uint8Array(0x400);
 let valid = false;
+let majorVersion = 0;
+let minorVersion = 0;
 
 for (let i = 0; i < preset.length; ++i) {
-  data[8 + 64 * 8 + i] = preset[i];
+  data[544 + i] = preset[i];
 }
 
 function setStatus(status) {
@@ -38,8 +40,8 @@ async function save() {
     setButtonStatus(uiMessages.findDevice);
     return;
   }
-  for (let i = 0; i < 520; i += 52) {
-    if (!await flasher.writeDataInRange(i, data.buffer.slice(i, i + 52))) {
+  for (let i = 0; i < 544; i += 32) {
+    if (!await flasher.writeDataInRange(i, data.buffer.slice(i, i + 32))) {
       setStatus(uiMessages.error + flasher.error);
       flasher = null;
       setButtonStatus(uiMessages.findDevice);
@@ -61,15 +63,15 @@ async function connect() {
     flasher = null;
     return;
   }
-  for (let i = 0; i < 520; i += 52) {
-    let buffer = await flasher.readDataInRange(0xf000 + i, 52);
+  for (let i = 0; i < 544; i += 32) {
+    let buffer = await flasher.readDataInRange(0xf000 + i, 32);
     if (!buffer) {
       setStatus(uiMessages.errorOnRead + flasher.error);
       flasher = null;
       return;
     }
     let b8 = new Uint8Array(buffer)
-    for (let j = 0; j < 52; ++j) {
+    for (let j = 0; j < 32; ++j) {
       data[i + j] = b8[j];
     }
   }
@@ -78,14 +80,24 @@ async function connect() {
     data[2] != 'S'.charCodeAt(0) ||
     data[3] != 'B'.charCodeAt(0) ||
     data[4] != 1 ||
-    data[5] != 0) {
+    (data[5] != 0 && data[5] != 2)) {
     setStatus(uiMessages.noData);
     flasher = null;
     return;
   }
+  majorVersion = data[4];
+  minorVersion = data[5];
+  if (data[5] == 0) {  // options are undefined for 1.00
+    document.getElementById('opt_2p').setAttribute('disabled', '');
+    for (let i = 0; i < 8; ++i) {
+      data[520 + i] = 0;
+    }
+  } else {
+    document.getElementById('opt_2p').removeAttribute('disabled');
+  }
   setStatus(uiMessages.connected + flasher.bootLoader +
     uiMessages.connectedInformation + data[4].toString() + '.' +
-    ('0' + data[5].toString()).substr(-2, 2) + ')');
+    ('0' + data[5].toString()).substring(-2, 2) + ')');
   valid = true;
   setButtonStatus(uiMessages.save);
   reflect(0);
@@ -186,6 +198,22 @@ function setFirePattern(index, fire) {
 }
 
 function reflect(index) {
+  const option_bias = (index > 7) ? 24 : 0;
+  const offset = 8 + 64 * index + option_bias;
+
+  for (let i = 0; i < 8; ++i) {
+    reflectButton(i, offset + 12 + i * 2);
+    let fire_offset = offset + 44 + i * 2;
+    setFirePattern(i, [data[fire_offset], data[fire_offset + 1]]);
+  }
+
+  if (index < 8) {
+    document.getElementById('opt_2p').checked =
+      (data[8 + 64 * 8 + index] & 1) != 0;
+  }
+}
+
+function update(index) {
   const offset = 8 + 64 * index;
 
   // START fixup
@@ -208,14 +236,6 @@ function reflect(index) {
   data[offset + 11] = 0x00;
 
   for (let i = 0; i < 8; ++i) {
-    reflectButton(i, offset + 12 + i * 2);
-    let fire_offset = offset + 44 + i * 2;
-    setFirePattern(i, [data[fire_offset], data[fire_offset + 1]]);
-  }
-}
-
-function update(index) {
-  for (let i = 0; i < 8; ++i) {
     let value = 0;
     let pattern = 0;
     let len = 0;
@@ -233,10 +253,29 @@ function update(index) {
         len = j + 1;
       }
     }
-    data[8 + 64 * index + 12 + i * 2 + 0] = value >> 8;
-    data[8 + 64 * index + 12 + i * 2 + 1] = value & 0xff;
-    data[8 + 64 * index + 44 + i * 2 + 0] = pattern;
-    data[8 + 64 * index + 44 + i * 2 + 1] = 0xff << (8 - len);
+
+    data[offset + 12 + i * 2 + 0] = value >> 8;
+    data[offset + 12 + i * 2 + 1] = value & 0xff;
+    data[offset + 44 + i * 2 + 0] = pattern;
+    data[offset + 44 + i * 2 + 1] = 0xff << (8 - len);
+  }
+
+  // Button 9 fixup
+  data[offset + 28] = 0x00;
+  data[offset + 29] = 0x02;
+  data[offset + 60] = 0xff;
+  data[offset + 61] = 0xff;
+
+  // Button 10 fixup
+  data[offset + 30] = 0x00;
+  data[offset + 31] = 0x01;
+  data[offset + 62] = 0xff;
+  data[offset + 63] = 0xff;
+
+  // option
+  data[8 + 64 * 8 + index] = 0;
+  if (document.getElementById('opt_2p').checked) {
+    data[8 + 64 * 8 + index] |= 1;
   }
 }
 
