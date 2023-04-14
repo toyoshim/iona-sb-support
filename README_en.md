@@ -85,8 +85,8 @@ The button numbers ignore button mapping, and follow the physical layout.
 | Button | Mode |
 | ------| ----- |
 | 1     | NEOGEO mini
-| 2     | Genesis Mini / Genesis Mini 2 / Astrocity Mini / Astrocity Mini V /<br> EGRET II mini
-| 3     | TurboGrafx-16 mini
+| 2     | Genesis Mini / Genesis Mini 2 / Astrocity Mini / Astrocity Mini V /<br> EGRET II mini / X68000Z
+| 3     | TurboGrafx-16 mini / X68000Z
 | 4     | PlayStation Classic
 | 5     | Retro-bit GENERATIONS 4
 | 6     | THE C64 MINI / A500 MINI
