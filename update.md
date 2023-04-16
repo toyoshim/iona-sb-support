@@ -6,7 +6,7 @@ permalink: /update
 # ファームウェア更新
 ---
 ## 接続準備
-[レイアウト設定](http://localhost:4000/setting)を参考に接続準備を済ませて下さい。
+[レイアウト設定](/iona-sb-support/setting)を参考に接続準備を済ませて下さい。
 
 ## 注意事項
 - 更新用データのURLは直接問い合わせのあった方のみと共有しています。
@@ -64,9 +64,11 @@ async function run() {
     }
     log('ファームウェアの準備ができました');
     const flasher = new CH559Flasher();
-    await flasher.connect();
-    if (flasher.error) {
-      log('IONA-SBへの接続に失敗: ' + flasher.error);
+    if (!await flasher.connect()) {
+      const error = (flasher.error == 'claimFailed')
+       ? 'デバイスが使用中'
+       : flasher.error;
+      log('IONA-SBへの接続に失敗: ' + error);
       return;
     }
     log('設定データ読み出し中');

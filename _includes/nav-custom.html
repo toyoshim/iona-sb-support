@@ -1,4 +1,9 @@
 <li class="downloads">
+  {% if page.url != "/update" %}<a href="update">{% endif %}
+    ファームウェア更新
+    {% if page.url != "/update" %}</a>{% endif %}
+</li>
+<li class="downloads">
   {% if page.url != "/setting" %}<a href="setting">{% endif %}
     レイアウト設定
     {% if page.url != "/setting" %}</a>{% endif %}
