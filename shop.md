@@ -16,3 +16,6 @@ permalink: /shop
 
 ### ヨーロッパ
 - Red Sun Systems - [MP12-IONA-SB - JVS/JVS Dash I/O board](https://redsuns.be/#examp12)
+
+### オセアニア
+- Candy Cab Club - [MP12-IONA-SB JVS "Arcade Stick" Controller PCB Rev.4](https://www.candycabclub.com/product/mp12-iona)
