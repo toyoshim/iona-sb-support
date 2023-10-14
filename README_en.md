@@ -104,6 +104,7 @@ I inject several tricks to the firmware so that it works only with the official 
 - Ver 1.01 Initial version for international version
 - Ver 1.02 Add a layout option to pretent supporting 2 players
 - Ver 1.10 Reduce latency a little on JVS Dash mode as performance fix that was made for IONA-US, are merged (shipped with Rev.4 board)
+- Ver 1.11 RESET status bug fix that caused a compatibility issue between exA-Arcadia v1.6.0 and IONA-SB 1.10 (shipped with all boards after Oct.14,2023)
 
 ## Contact
 Please contact me over [Twitter](https://twitter.com/toyoshim) or other socials.
