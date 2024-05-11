@@ -50,7 +50,10 @@ function log(text) {
   document.getElementById('error').innerText = text;
 }
 async function run() {
-  const url = document.getElementById('url').value;
+  let url = document.getElementById('url').value;
+  if (!url.startsWith('http')) {
+    url = 'https://iona.twintail.org/' + url;
+  }
   fetch(url).then(async e => {
     const data = await e.arrayBuffer();
     const u8 = new Uint8Array(data);
