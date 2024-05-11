@@ -57,7 +57,11 @@ async function run() {
   fetch(url).then(async e => {
     const data = await e.arrayBuffer();
     const u8 = new Uint8Array(data);
-    const size = u8.length - u8[u8.length - 2] - 1;
+    let x = u8[u8.length - 1];
+    if (x > 1) {
+      x--;
+    }
+    const size = u8.length - x - 1;
     const digest = new Uint8Array(
         await crypto.subtle.digest('SHA-256', data.slice(0, size)));
     let result = false;
